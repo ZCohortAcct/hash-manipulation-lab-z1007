@@ -17,34 +17,80 @@ def second_supply_for_fourth_of_july(holiday_hash)
   #     :memorial_day => ["BBQ"]
   #   }
   # }
-  
+
   # return the second element in the 4th of July array
+
+  holiday_hash[:summer][:fourth_of_july][1]
+  
 end
 
 def add_supply_to_winter_holidays(holiday_hash, supply)
   # holiday_hash is identical to the one above
   # add the second argument, which is a supply, to BOTH the
   # Christmas AND the New Year's arrays
+  
+  # holiday_hash[:winter][:christmas] << "Balloons"
+  # holiday_hash[:winter][:new_years] << "Balloons"
+  
+  # holiday_hash[:winter][:christmas] << supply
+  # holiday_hash[:winter][:new_years] << supply
+  
+  # holiday_hash.each do |key, val|
+  #   if key == :winter
+  #     val.transform_values do |value| 
+  #       value << supply
+  #     end
+      
+    #   val.values.each do |value2|
+    #     # binding.pry
+    #     value << supply
+    #   end
+  #   end
+  # end
 
+  # holiday_hash[:winter].each do |key, val|
+  #   # binding.pry
+  #   if key == :christmas || key == :new_years
+  #     val << supply
+  #   end
+  # end
+
+  holiday_hash[:winter].each do |key, val|
+    # binding.pry
+    val << supply
+  end
 end
 
 
 def add_supply_to_memorial_day(holiday_hash, supply)
   # again, holiday_hash is the same as the ones above
   # add the second argument to the memorial day array
-
+  holiday_hash[:spring][:memorial_day] << supply
 end
 
 def add_new_holiday_with_supplies(holiday_hash, season, holiday_name, supply_array)
   # code here
   # remember to return the updated hash
 
+  # outter keys are all seasons
+  # seasons values are all hashes ({})
+  # within hashes have holiday_name & value
+  
+  season_hash = holiday_hash[season]
+
+  season_hash[holiday_name] = supply_array
+  
+  holiday_hash
 end
 
 def all_winter_holiday_supplies(holiday_hash)
   # return an array of all of the supplies that are used in the winter season
+  
+  # binding.pry
+  # holiday_hash[:winter].values.flatten
 
-end
+  holiday_hash[:winter].map{|key,val| val}.flatten
+end 
 
 def all_supplies_in_holidays(holiday_hash)
   # iterate through holiday_hash and print items such that your readout resembles:
@@ -54,6 +100,24 @@ def all_supplies_in_holidays(holiday_hash)
   # Summer:
   #   Fourth Of July: Fireworks, BBQ
   # etc.
+
+  holiday_hash.each do |season, holiday|
+    # puts "#{season.capitalize}:"
+    puts "#{season.to_s.capitalize}:"
+    
+    holiday.each do |key, value|
+      formatted_holiday = key.to_s.split('_')
+      
+      # final_formatted_holiday = formatted_holiday.map{|word| word.capitalize}.join(' ')
+      # puts "  #{final_formatted_holiday}: #{value.join(', ')}"
+
+      # binding.pry
+      final_formatted_holiday = formatted_holiday.map(&:capitalize).join(' ')
+
+      puts "  #{final_formatted_holiday}: #{value.join(', ')}"
+      "#{key.to_s.capitalize}: #{value.join(', ')}"
+    end
+  end
 
 end
 
@@ -69,3 +133,4 @@ end
 
 
 
+#
